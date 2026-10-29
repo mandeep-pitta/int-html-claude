@@ -1,0 +1,667 @@
+<title>Gutierrez Panel Brief</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: hiring dossier. Sticky section index on the left, one reading column on the right; tables scroll in place. */
+:root{
+  --bg:#f5f7f8; --surface:#ffffff; --ink:#18232b; --muted:#56656f; --line:#d9e0e4;
+  --accent:#1d5d72; --accent-soft:#e2eef2;
+  --good:#2f7a4a; --good-soft:#e3f2e8; --warn:#9a6a0b; --warn-soft:#fbf0d6; --bad:#a63a2f; --bad-soft:#f8e3e0; --info:#4a5a9a; --info-soft:#e7e9f6;
+  --f-display:"Newsreader",Georgia,"Times New Roman",serif;
+  --f-body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#11181d; --surface:#18222a; --ink:#e3eaee; --muted:#9aabb5; --line:#2b3a44;
+  --accent:#6fb8cf; --accent-soft:#1b3440;
+  --good:#79c693; --good-soft:#18301f; --warn:#e2b85a; --warn-soft:#352a12; --bad:#ec8d82; --bad-soft:#3a1d1a; --info:#a7b2ec; --info-soft:#232a48;
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#11181d; --surface:#18222a; --ink:#e3eaee; --muted:#9aabb5; --line:#2b3a44;
+  --accent:#6fb8cf; --accent-soft:#1b3440;
+  --good:#79c693; --good-soft:#18301f; --warn:#e2b85a; --warn-soft:#352a12; --bad:#ec8d82; --bad-soft:#3a1d1a; --info:#a7b2ec; --info-soft:#232a48;
+  color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.6;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:32px 64px}
+.wrap{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:200px minmax(0,1fr);gap:48px}
+nav.index{position:sticky;top:calc(env(safe-area-inset-top,0px) + 24px);align-self:start;font-size:13px}
+nav.index p{font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 8px}
+nav.index ol{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+nav.index a{display:block;padding:4px 10px;border-left:2px solid var(--line);color:var(--muted);text-decoration:none}
+nav.index a:hover,nav.index a:focus-visible{color:var(--accent);border-left-color:var(--accent);outline:none}
+main{min-width:0;display:grid;gap:56px}
+@media (max-width:860px){.wrap{grid-template-columns:minmax(0,1fr)}nav.index{display:none}}
+
+h1,h2,h3{font-family:var(--f-display);font-weight:600;text-wrap:balance;margin:0;line-height:1.2}
+h1{font-size:clamp(30px,4.4vw,42px)}
+h2{font-size:26px;padding-bottom:10px;border-bottom:1px solid var(--line)}
+h3{font-size:19px;font-weight:500}
+p{margin:0;max-width:70ch}
+a{color:var(--accent)}
+.eyebrow{font-family:var(--f-mono);font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+.muted{color:var(--muted)}
+section{display:grid;gap:20px;scroll-margin-top:24px}
+.stack{display:grid;gap:12px}
+
+/* Header */
+header.top{display:grid;gap:14px}
+.meta{display:flex;flex-wrap:wrap;gap:6px 18px;font-family:var(--f-mono);font-size:12.5px;color:var(--muted)}
+.notice{font-size:13px;color:var(--muted);border-left:2px solid var(--line);padding-left:12px}
+
+/* Verdict block */
+.verdict{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:24px;display:grid;grid-template-columns:auto minmax(0,1fr);gap:24px;align-items:center}
+.gauge{width:128px;height:128px;position:relative}
+.gauge svg{width:100%;height:100%;transform:rotate(-90deg)}
+.gauge .n{position:absolute;inset:0;display:grid;place-items:center;text-align:center;font-family:var(--f-display);font-size:30px;font-weight:600;line-height:1}
+.gauge .n small{display:block;font-family:var(--f-mono);font-size:10.5px;font-weight:400;color:var(--muted);letter-spacing:.06em;margin-top:4px}
+.verdict h3{font-size:22px}
+@media (max-width:560px){.verdict{grid-template-columns:minmax(0,1fr)}}
+
+.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+@media (max-width:700px){.two{grid-template-columns:minmax(0,1fr)}}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:18px 20px;display:grid;gap:10px;align-content:start;min-width:0}
+.panel ul{margin:0;padding-left:18px;display:grid;gap:6px}
+
+/* Chips */
+.chip{display:inline-block;font-family:var(--f-mono);font-size:11.5px;font-weight:500;padding:2px 8px;border-radius:3px;white-space:nowrap;letter-spacing:.02em}
+.c-good{background:var(--good-soft);color:var(--good)}
+.c-warn{background:var(--warn-soft);color:var(--warn)}
+.c-bad{background:var(--bad-soft);color:var(--bad)}
+.c-info{background:var(--info-soft);color:var(--info)}
+
+/* Tables */
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:6px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:14px;min-width:620px}
+th,td{text-align:left;vertical-align:top;padding:10px 14px;border-bottom:1px solid var(--line)}
+th{font-family:var(--f-mono);font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);font-weight:500;background:var(--bg)}
+tr:last-child td{border-bottom:0}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;font-family:var(--f-mono);white-space:nowrap}
+tfoot td{font-weight:600;background:var(--accent-soft)}
+
+/* Timeline */
+.timeline{display:grid;gap:8px}
+.tl-row{display:grid;grid-template-columns:150px minmax(0,1fr);gap:14px;align-items:center;font-size:13.5px}
+.tl-bar{height:26px;position:relative;background:var(--bg);border:1px solid var(--line);border-radius:3px}
+.tl-seg{position:absolute;top:0;bottom:0;border-radius:2px;display:flex;align-items:center;padding:0 8px;font-family:var(--f-mono);font-size:11px;white-space:nowrap;overflow:hidden}
+.tl-axis{display:grid;grid-template-columns:150px minmax(0,1fr);gap:14px;font-family:var(--f-mono);font-size:11px;color:var(--muted)}
+.tl-axis div:last-child{display:flex;justify-content:space-between}
+@media (max-width:560px){.tl-row,.tl-axis{grid-template-columns:96px minmax(0,1fr)}}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}
+.fact{border-top:2px solid var(--accent);padding-top:8px}
+.fact b{display:block;font-family:var(--f-display);font-size:24px;font-weight:600;font-variant-numeric:tabular-nums}
+.fact span{font-size:13px;color:var(--muted)}
+
+/* Rounds */
+.rounds{display:grid;gap:0;border:1px solid var(--line);border-radius:6px;background:var(--surface);overflow:hidden}
+.round{display:grid;grid-template-columns:44px minmax(0,1fr) auto;gap:14px;padding:14px 18px;border-bottom:1px solid var(--line);align-items:baseline}
+.round:last-child{border-bottom:0}
+.round .k{font-family:var(--f-mono);font-size:13px;color:var(--accent);font-weight:500}
+.round .w{font-size:13px;color:var(--muted)}
+.round .t{font-family:var(--f-mono);font-size:12px;color:var(--muted);white-space:nowrap}
+.gate{background:var(--bad-soft);color:var(--ink);border-radius:6px;padding:14px 18px;font-size:14px}
+.gate b{color:var(--bad)}
+
+/* Questions */
+.qnav{display:flex;flex-wrap:wrap;gap:8px}
+.qnav a{font-size:13px;text-decoration:none;border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:5px 12px;border-radius:999px}
+.qnav a:hover,.qnav a:focus-visible{border-color:var(--accent);color:var(--accent);outline:none}
+.qgroup{display:grid;gap:14px;scroll-margin-top:24px}
+.qgroup-h{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 14px}
+.qgroup-h .why{font-size:13.5px;color:var(--muted);flex-basis:100%}
+.q{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:18px 20px;display:grid;gap:12px}
+.q-head{display:grid;grid-template-columns:44px minmax(0,1fr);gap:10px}
+.q-id{font-family:var(--f-mono);font-size:13px;color:var(--accent);font-weight:500;padding-top:2px}
+.q-text{font-size:16px;font-weight:500;line-height:1.5}
+.q-body{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 20px;padding-left:54px;font-size:14px}
+.q-body > div{min-width:0}
+.q-body .full{grid-column:1/-1}
+.q-body h4{margin:0 0 2px;font-family:var(--f-mono);font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;font-weight:500}
+.h-test{color:var(--muted)} .h-strong{color:var(--good)} .h-red{color:var(--bad)} .h-probe{color:var(--accent)}
+.q-body ul{margin:0;padding-left:16px;display:grid;gap:3px}
+.callout{font-size:13.5px;background:var(--accent-soft);border-radius:4px;padding:8px 12px}
+@media (max-width:640px){.q-body{grid-template-columns:minmax(0,1fr);padding-left:0}.q-head{grid-template-columns:36px minmax(0,1fr)}}
+.medd{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:6px 18px;margin:0;padding:0;list-style:none}
+.medd li b{font-family:var(--f-mono);font-size:12px;color:var(--accent);margin-right:4px}
+
+/* Scenario */
+.scenario{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:6px;padding:20px 22px;display:grid;gap:10px}
+ol.plain{margin:0;padding-left:20px;display:grid;gap:4px}
+
+/* Scorer */
+.scorer{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:20px;display:grid;gap:16px}
+.srow{display:grid;grid-template-columns:minmax(0,1fr) 60px 210px;gap:12px;align-items:center;font-size:14px;padding-bottom:10px;border-bottom:1px solid var(--line)}
+.srow:last-of-type{border-bottom:0}
+.srow .wt{font-family:var(--f-mono);font-size:12px;color:var(--muted);text-align:right}
+.seg{display:flex;gap:4px}
+.seg button{flex:1;font-family:var(--f-mono);font-size:13px;padding:6px 0;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:4px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--surface)}
+.seg button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.result{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center;padding-top:6px}
+.result .big{font-family:var(--f-display);font-size:32px;font-weight:600;font-variant-numeric:tabular-nums}
+.reset{font-family:var(--f-body);font-size:13px;border:1px solid var(--line);background:transparent;color:var(--muted);padding:5px 12px;border-radius:4px;cursor:pointer}
+.reset:focus-visible{outline:2px solid var(--accent)}
+@media (max-width:640px){.srow{grid-template-columns:minmax(0,1fr) 50px}.seg{grid-column:1/-1}}
+
+footer{font-size:13px;color:var(--muted);border-top:1px solid var(--line);padding-top:16px}
+@media (prefers-reduced-motion:no-preference){.seg button{transition:background .12s}}
+</style>
+
+<div class="wrap">
+<nav class="index" aria-label="Sections">
+  <p>Panel brief</p>
+  <ol>
+    <li><a href="#verdict">Verdict</a></li>
+    <li><a href="#timeline">Experience</a></li>
+    <li><a href="#scorecard">JD scorecard</a></li>
+    <li><a href="#risks">Strengths &amp; risks</a></li>
+    <li><a href="#plan">Interview plan</a></li>
+    <li><a href="#questions">Questions</a></li>
+    <li><a href="#exercise">Mock exercise</a></li>
+    <li><a href="#references">References</a></li>
+    <li><a href="#rubric">Rubric &amp; scorer</a></li>
+    <li><a href="#decision">Decision guide</a></li>
+  </ol>
+</nav>
+
+<main>
+<header class="top">
+  <span class="eyebrow">Interview panel brief · Confidential</span>
+  <h1>Matthew Gutierrez for Sales Account Executive</h1>
+  <div class="meta"><span>Req 261294</span><span>Cloudera Enterprise Sales</span><span>Currently: Account Manager IV, One Identity</span><span>Prepared 29 Oct 2026</span></div>
+  <p class="notice">For panel members only. This assessment is based on the resume alone. Every conclusion needs confirming in interviews and reference checks. Please don't forward it outside the hiring team.</p>
+</header>
+
+<!-- VERDICT -->
+<section id="verdict">
+  <div class="verdict">
+    <div class="gauge" aria-label="Fit score 57 percent">
+      <svg viewBox="0 0 36 36"><circle cx="18" cy="18" r="15.9" fill="none" stroke="var(--line)" stroke-width="3"/><circle cx="18" cy="18" r="15.9" fill="none" stroke="var(--accent)" stroke-width="3" stroke-dasharray="57 100" stroke-linecap="round"/></svg>
+      <div class="n"><span>57%<small>2.8 / 5</small></span></div>
+    </div>
+    <div class="stack">
+      <span class="chip c-warn" style="justify-self:start">Moderate fit · stretch candidate</span>
+      <h3>Advance to the first screen. Hold the Enterprise bar on proof of performance.</h3>
+      <p>Strong trajectory and real complex-sale mechanics, with useful Energy and Public Sector wins in Texas. Below the 8+ year bar, no data or cloud background, and the resume gives no quota attainment numbers. A credible stretch hire only if interviews show consistent over-achievement and fast learning. Otherwise a better fit for a Commercial or Mid-Enterprise seat.</p>
+    </div>
+  </div>
+  <div class="two">
+    <div class="panel"><span class="eyebrow" style="color:var(--good)">Biggest strengths</span>
+      <ul>
+        <li>Promoted SDR → ISR → Corporate AE → Account Manager IV in about 3 years</li>
+        <li>About 4 years of 6–12 month enterprise cycles: POCs, buying committees, procurement</li>
+        <li>Energy wins in Houston: EOG Resources, Baker Hughes, TechnipFMC</li>
+        <li>Regulated buyers: State of Louisiana, OU Medicine</li>
+        <li>Identity governance background maps onto data governance</li>
+      </ul></div>
+    <div class="panel"><span class="eyebrow" style="color:var(--bad)">Biggest gaps</span>
+      <ul>
+        <li>No quota attainment figures anywhere on the resume</li>
+        <li>About 4 years of true enterprise selling against an 8+ year bar</li>
+        <li>No data management or data warehousing experience</li>
+        <li>No containers, Kubernetes or cloud infrastructure</li>
+        <li>$1.5M quota and $200–600K ACV, smaller than this role's scale</li>
+      </ul></div>
+  </div>
+  <p class="callout"><b>The question for the panel:</b> is this a proven over-achiever who can sell a more technical, larger platform to a new buyer (CDO, CIO, Head of Data, Enterprise Architecture)? Or a solid identity-security rep who hasn't yet shown the scale or domain depth this role needs?</p>
+</section>
+
+<!-- TIMELINE -->
+<section id="timeline">
+  <h2>Experience timeline</h2>
+  <div class="facts">
+    <div class="fact"><b>~7.2 yrs</b><span>B2B software sales, including SDR time</span></div>
+    <div class="fact"><b>~6.5 yrs</b><span>Carrying a software closing quota</span></div>
+    <div class="fact"><b>~4.0 yrs</b><span>True enterprise field selling</span></div>
+    <div class="fact"><b>8+ yrs</b><span>Required by the job description</span></div>
+  </div>
+  <div class="timeline" role="img" aria-label="Career timeline from 2012 to 2026">
+    <!-- scale: 2012.0 to 2027.0 = 15 years -->
+    <div class="tl-axis"><div></div><div><span>2012</span><span>2015</span><span>2018</span><span>2021</span><span>2024</span><span>2027</span></div></div>
+    <div class="tl-row"><span>LiveOak Living</span><div class="tl-bar"><div class="tl-seg" style="left:6.1%;width:31.6%;background:var(--line);color:var(--muted)">Manager / Lead</div></div></div>
+    <div class="tl-row"><span>OCO Biomedical</span><div class="tl-bar"><div class="tl-seg" style="left:37.7%;width:13.3%;background:var(--warn-soft);color:var(--warn)">Device ISR</div></div></div>
+    <div class="tl-row"><span>SailPoint</span><div class="tl-bar">
+      <div class="tl-seg" style="left:51.1%;width:3.9%;background:var(--info-soft);color:var(--info)" title="SDR">S</div>
+      <div class="tl-seg" style="left:55.0%;width:13.3%;background:var(--info-soft);color:var(--info);border-left:1px solid var(--surface)">ISR</div>
+      <div class="tl-seg" style="left:68.4%;width:3.9%;background:var(--accent-soft);color:var(--accent);border-left:1px solid var(--surface)" title="Corporate AE">C</div></div></div>
+    <div class="tl-row"><span>One Identity</span><div class="tl-bar"><div class="tl-seg" style="left:72.2%;width:26.1%;background:var(--accent);color:var(--surface)">Account Manager IV</div></div></div>
+  </div>
+  <div class="tbl"><table>
+    <thead><tr><th>Period</th><th>Company / role</th><th class="num">Duration</th><th>Counts toward the 8+ years?</th></tr></thead>
+    <tbody>
+      <tr><td>Nov 2022 – present</td><td>One Identity · Account Manager IV</td><td class="num">~4 yrs</td><td><span class="chip c-good">Yes</span> Enterprise territory, $1.5M quota, $200–600K ACV</td></tr>
+      <tr><td>Apr – Nov 2022</td><td>SailPoint · Corporate AE</td><td class="num">7 mo</td><td><span class="chip c-warn">Partly</span> Closing quota, corporate segment</td></tr>
+      <tr><td>Mar 2020 – Mar 2022</td><td>SailPoint · Inside Sales Rep</td><td class="num">2 yrs</td><td><span class="chip c-warn">Partly</span> Closing quota, inside sales, likely smaller deals</td></tr>
+      <tr><td>Aug 2019 – Mar 2020</td><td>SailPoint · SDR</td><td class="num">7 mo</td><td><span class="chip c-bad">No</span> Pipeline generation only</td></tr>
+      <tr><td>Aug 2017 – Aug 2019</td><td>OCO Biomedical · Inside Sales</td><td class="num">2 yrs</td><td><span class="chip c-bad">No</span> Medical devices, not software</td></tr>
+      <tr><td>Dec 2012 – Aug 2017</td><td>LiveOak Living · Manager / Lead Staff</td><td class="num">~4.5 yrs</td><td><span class="chip c-bad">No</span> Not sales. Shows leadership and resilience</td></tr>
+    </tbody></table></div>
+  <p class="muted">Education: BBA Management, minor in Psychology, Texas State University.</p>
+</section>
+
+<!-- SCORECARD -->
+<section id="scorecard">
+  <h2>Job description scorecard</h2>
+  <h3>Responsibilities</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>JD responsibility</th><th>Resume evidence</th><th>Rating</th><th>Panel note</th></tr></thead>
+    <tbody>
+      <tr><td>Grow revenue in designated Enterprise accounts</td><td>200+ account, 4-state territory. Expansion and renewal listed as skills</td><td><span class="chip c-warn">Partial</span></td><td>A breadth model. Cloudera AEs go deep into a few large installed-base accounts.</td></tr>
+      <tr><td>Business plans for customer priorities</td><td>Account planning, value assessments, ROI cases</td><td><span class="chip c-good">Meets</span></td><td>Ask for a real account plan example.</td></tr>
+      <tr><td>Tech footprint and competitive intelligence</td><td>Not shown</td><td><span class="chip c-info">Unknown</span></td><td>Probe how they research a customer's stack.</td></tr>
+      <tr><td>Bring in specialists, keep oversight</td><td>Leads SE, CS, PS, BDR and partners</td><td><span class="chip c-good">Meets</span></td><td>Good quarterback signals.</td></tr>
+      <tr><td>Own relationships and customer success</td><td>Account Manager title suggests base ownership</td><td><span class="chip c-warn">Partial</span></td><td>Confirm renewal / expansion / new logo mix.</td></tr>
+      <tr><td>Consensus across exec, influencer, decision maker</td><td>CISOs, CIOs, IT directors, procurement, architects</td><td><span class="chip c-good">Meets</span></td><td>Network is security-centric. Cloudera buyers are CDO, CIO, data and architecture leaders.</td></tr>
+      <tr><td>Lead large-scale transactions</td><td>$200–600K ACV</td><td><span class="chip c-warn">Partial</span></td><td>"Multi-million-dollar" claim in summary doesn't match. Clarify.</td></tr>
+      <tr><td>Pipeline, forecasting, internal leadership</td><td>~4x coverage, Salesforce forecasts</td><td><span class="chip c-good">Meets</span></td><td>Ask for forecast accuracy.</td></tr>
+      <tr><td>Exceed subscription, renewal, PS and training goals</td><td>None</td><td><span class="chip c-bad">Gap</span></td><td>No attainment, rank or awards. Biggest red flag.</td></tr>
+    </tbody></table></div>
+  <h3>Qualifications</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>JD qualification</th><th>Rating</th><th>Panel note</th></tr></thead>
+    <tbody>
+      <tr><td>8+ years exceeding enterprise software targets</td><td><span class="chip c-bad">Gap</span></td><td>~4 years enterprise, ~6.5 years closing. "Exceeding" not shown.</td></tr>
+      <tr><td>Startup and vertical use-case experience</td><td><span class="chip c-warn">Partial</span></td><td>No startup (SailPoint and One Identity are established, PE-backed). Real Energy, Public Sector and Healthcare experience.</td></tr>
+      <tr><td>Data management or data warehousing</td><td><span class="chip c-bad">Gap</span></td><td>Only "Data Security Concepts". Bridge through governance and access control.</td></tr>
+      <tr><td>Containers, Kubernetes, public cloud</td><td><span class="chip c-bad">Gap</span></td><td>Not mentioned.</td></tr>
+      <tr><td>Up to 50% travel</td><td><span class="chip c-good">Likely</span></td><td>4-state field territory today. Confirm.</td></tr>
+      <tr><td>No immigration sponsorship</td><td><span class="chip c-info">Unknown</span></td><td>Ask the standard work authorization question.</td></tr>
+    </tbody></table></div>
+  <h3>Weighted fit</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Dimension</th><th class="num">Weight</th><th class="num">Score /5</th><th class="num">Weighted</th></tr></thead>
+    <tbody>
+      <tr><td>Proven quota over-achievement</td><td class="num">25%</td><td class="num">2.5</td><td class="num">0.63</td></tr>
+      <tr><td>Enterprise complex deals and deal size</td><td class="num">20%</td><td class="num">3.0</td><td class="num">0.60</td></tr>
+      <tr><td>Data / analytics domain</td><td class="num">15%</td><td class="num">1.5</td><td class="num">0.23</td></tr>
+      <tr><td>Cloud / Kubernetes acumen</td><td class="num">10%</td><td class="num">1.5</td><td class="num">0.15</td></tr>
+      <tr><td>Vertical and territory relevance</td><td class="num">10%</td><td class="num">4.5</td><td class="num">0.45</td></tr>
+      <tr><td>Executive relationships, multi-threading</td><td class="num">10%</td><td class="num">3.5</td><td class="num">0.35</td></tr>
+      <tr><td>Partner and cross-functional leadership</td><td class="num">5%</td><td class="num">4.0</td><td class="num">0.20</td></tr>
+      <tr><td>Trajectory and coachability</td><td class="num">5%</td><td class="num">4.5</td><td class="num">0.23</td></tr>
+    </tbody>
+    <tfoot><tr><td>Total</td><td class="num">100%</td><td class="num"></td><td class="num">2.8 ≈ 57%</td></tr></tfoot>
+  </table></div>
+  <p class="muted">If interviews confirm attainment consistently above 100% and strong learning agility, the score rises to about 3.4 (68%).</p>
+</section>
+
+<!-- RISKS -->
+<section id="risks">
+  <h2>Strengths and risks</h2>
+  <div class="two">
+    <div class="panel"><span class="eyebrow">Strengths to build on</span>
+      <ul>
+        <li><b>Trajectory.</b> Fast promotions, plus a self-driven move from human services into sales.</li>
+        <li><b>Complex-sale mechanics.</b> POCs, technical validation, procurement and legal, value assessments.</li>
+        <li><b>Energy credibility.</b> These companies are heavy users of seismic, sensor and production data.</li>
+        <li><b>Regulated buyers.</b> Where the hybrid, on-prem and sovereignty story matters most.</li>
+        <li><b>Security ally.</b> Can bring the CISO into a data platform deal, which often decides it.</li>
+        <li><b>Channel experience</b> and self-reported 4x pipeline discipline.</li>
+      </ul></div>
+    <div class="panel"><span class="eyebrow">What to watch</span>
+      <ul>
+        <li><b>Persona shift</b> from security buyers to data and analytics leaders.</li>
+        <li><b>Breadth vs. depth</b>: 200+ accounts today vs. a few large named accounts.</li>
+        <li><b>7 months</b> as Corporate AE before leaving SailPoint.</li>
+        <li><b>Why leave now</b> after about 4 years at One Identity: push or pull?</li>
+        <li><b>Filler bullets</b> on the resume. Notice how precisely they describe their own impact.</li>
+      </ul></div>
+  </div>
+  <div class="tbl"><table>
+    <thead><tr><th>Concern</th><th>Severity</th><th>How to resolve</th></tr></thead>
+    <tbody>
+      <tr><td>No attainment metrics</td><td><span class="chip c-bad">High</span></td><td>Year-by-year quota, attainment and rank. Verify with references.</td></tr>
+      <tr><td>Below the 8+ year bar</td><td><span class="chip c-warn">Medium</span></td><td>Decide up front whether the bar is firm.</td></tr>
+      <tr><td>No data / analytics domain</td><td><span class="chip c-warn">Med–High</span></td><td>Test preparation and learning speed.</td></tr>
+      <tr><td>No Kubernetes / cloud</td><td><span class="chip c-warn">Medium</span></td><td>Check conceptual baseline and willingness to ramp.</td></tr>
+      <tr><td>Deal and quota scale</td><td><span class="chip c-warn">Medium</span></td><td>Largest TCV, multi-year and ELA experience.</td></tr>
+      <tr><td>"Multi-million" vs. $600K max ACV</td><td><span class="chip c-info">Check</span></td><td>Ask directly: TCV, multi-year, or inflated?</td></tr>
+      <tr><td>Short Corporate AE stint</td><td><span class="chip c-info">Check</span></td><td>Ask why. Promotion, reorg or comp?</td></tr>
+      <tr><td>No startup experience</td><td><span class="chip c-good">Low</span></td><td>Probe ambiguity tolerance and scrappiness.</td></tr>
+    </tbody></table></div>
+</section>
+
+<!-- PLAN -->
+<section id="plan">
+  <h2>Interview plan</h2>
+  <div class="rounds">
+    <div class="round"><span class="k">R1</span><div><b>Hiring manager screen</b><div class="w">Motivation, attainment numbers, deal sizes, travel, work authorization, comp</div></div><span class="t">30–45 min</span></div>
+    <div class="round"><span class="k">R2</span><div><b>Deal and territory deep-dive</b> · HM + RVP or senior AE<div class="w">MEDDPICC deal reviews, forecasting, account planning, multi-threading</div></div><span class="t">60 min</span></div>
+    <div class="round"><span class="k">R3</span><div><b>Domain and technical acumen</b> · Solutions Engineer<div class="w">Data and analytics literacy, cloud and Kubernetes concepts, SE partnership</div></div><span class="t">45 min</span></div>
+    <div class="round"><span class="k">R4</span><div><b>Mock exercise</b> · HM + SE as the customer<div class="w">Account plan presentation and live discovery role-play</div></div><span class="t">60 min</span></div>
+    <div class="round"><span class="k">R5</span><div><b>Cross-functional</b> · Customer Success or Alliances lead<div class="w">Collaboration, partner co-selling, customer success mindset</div></div><span class="t">30 min</span></div>
+    <div class="round"><span class="k">R6</span><div><b>References</b> · Hiring manager<div class="w">Former managers at One Identity and SailPoint, plus one SE or peer</div></div><span class="t">—</span></div>
+  </div>
+  <p class="gate"><b>Stop point after R1:</b> if the candidate can't give clear, specific attainment above 100% for most of the last 3–4 years, end the process for this level.</p>
+</section>
+
+<!-- QUESTIONS -->
+<section id="questions">
+  <h2>Interview questions</h2>
+  <p class="muted">Each question lists what it tests, what a strong answer sounds like, red flags and follow-ups. Suggested owner rounds are shown next to each group.</p>
+  <div class="qnav">
+    <a href="#qa">A · Track record</a><a href="#qb">B · Deal execution</a><a href="#qc">C · Expansion &amp; renewals</a><a href="#qd">D · Data domain</a><a href="#qe">E · Cloud &amp; K8s</a><a href="#qf">F · Pipeline</a><a href="#qg">G · Exec presence</a><a href="#qh">H · Drive &amp; culture</a><a href="#qi">I · Logistics</a>
+  </div>
+
+  <div class="qgroup" id="qa">
+    <div class="qgroup-h"><h3>A. Quota performance and track record</h3><span class="chip c-bad">Top priority</span><span class="chip c-info">R1, R2</span><span class="why">The job description's first requirement, and the resume's biggest omission.</span></div>
+    <article class="q"><div class="q-head"><span class="q-id">A1</span><p class="q-text">"Walk me through your quota and attainment for each year since 2020: number, percentage, and where you ranked on the team."</p></div>
+      <div class="q-body">
+        <div><h4 class="h-strong">Strong answer</h4>Exact numbers given without hesitation, e.g. "FY24: $1.5M quota, closed $1.8M, 120%, #2 of 9." Knows how they compare to peers. Matches what references say.</div>
+        <div><h4 class="h-red">Red flags</h4>"Usually around quota." Switches to pipeline or activity numbers. Blames the territory every year.</div>
+        <div class="full"><h4 class="h-probe">Follow-ups</h4><ul><li>What made the difference in your best year?</li><li>What happened in your weakest year, and what did you change?</li><li>Split of new logo vs. expansion vs. renewal?</li><li>Any year below 80%? Why?</li></ul></div>
+      </div></article>
+    <article class="q"><div class="q-head"><span class="q-id">A2</span><p class="q-text">"Your resume mentions multi-million-dollar opportunities but lists ACVs of $200K–$600K. Help me reconcile that. What's the largest deal you personally closed, by ACV and by TCV?"</p></div>
+      <div class="q-body">
+        <div><h4 class="h-test">Testing</h4>Accuracy, deal scale, honesty.</div>
+        <div><h4 class="h-strong">Strong answer</h4>A clear explanation, e.g. "a 3-year, $1.8M TCV with EOG," and a precise account of their own role vs. the team's.</div>
+        <div><h4 class="h-red">Red flags</h4>Counts pipeline or team deals as their own. Gets defensive.</div>
+        <div><h4 class="h-probe">Follow-ups</h4><ul><li>How was it structured: multi-year, prepaid, ramped?</li><li>Who did you negotiate with in procurement?</li><li>What did you give up to get it signed?</li></ul></div>
+      </div></article>
+    <article class="q"><div class="q-head"><span class="q-id">A3</span><p class="q-text">"Have you been to President's Club or earned other recognition? If not, what's kept you from it?"</p></div>
+      <div class="q-body"><div class="full"><h4 class="h-strong">Strong answer</h4>Specific awards, or an honest, reflective explanation.</div></div></article>
+    <article class="q"><div class="q-head"><span class="q-id">A4</span><p class="q-text">"How accurate is your forecast in the quarter you call it? Tell me about a deal that slipped."</p></div>
+      <div class="q-body">
+        <div><h4 class="h-strong">Strong answer</h4>Knows their accuracy rate. Clear about commit vs. best case. Owns the slip and describes what they changed afterward.</div>
+        <div><h4 class="h-red">Red flags</h4>"I never miss my forecast." Blames only the customer.</div>
+      </div></article>
+  </div>
+
+  <div class="qgroup" id="qb">
+    <div class="qgroup-h"><h3>B. Enterprise deal execution</h3><span class="chip c-info">R2</span><span class="why">The job description asks for someone who can lead large-scale transactions and build consensus across a buying committee.</span></div>
+    <article class="q"><div class="q-head"><span class="q-id">B1</span><p class="q-text">"Pick your most complex win, maybe Baker Hughes, EOG or the State of Louisiana. Walk me through it from first touch to signature."</p></div>
+      <div class="q-body">
+        <div class="full"><h4 class="h-probe">Probe with MEDDPICC</h4>
+          <ul class="medd">
+            <li><b>M</b>What quantified outcome did they sign up for?</li>
+            <li><b>E</b>Who signed? When did you first meet them?</li>
+            <li><b>D</b>How did you learn, and shape, the evaluation criteria?</li>
+            <li><b>D</b>What was the decision process and who was in it?</li>
+            <li><b>P</b>Walk through procurement, legal and security review.</li>
+            <li><b>I</b>What was the compelling event? The cost of doing nothing?</li>
+            <li><b>C</b>Who was your champion, and how did you test them?</li>
+            <li><b>C</b>Who were you up against, and how did you win?</li>
+          </ul></div>
+        <div><h4 class="h-strong">Strong answer</h4>Names, titles and dates. Clearly ran the deal and shaped the buying process.</div>
+        <div><h4 class="h-red">Red flags</h4>Generic process talk. All "we", no "I". Can't name the economic buyer. The SE or partner did the real work.</div>
+      </div></article>
+    <article class="q"><div class="q-head"><span class="q-id">B2</span><p class="q-text">"Tell me about a large deal you lost. What would you do differently?"</p></div>
+      <div class="q-body">
+        <div><h4 class="h-strong">Strong answer</h4>Honest self-critique (single-threaded, missed the economic buyer, poor qualification) with concrete changes since.</div>
+        <div><h4 class="h-red">Red flags</h4>Blames only price, product or the customer.</div>
+      </div></article>
+    <article class="q"><div class="q-head"><span class="q-id">B3</span><p class="q-text">"Describe a deal where the buying committee disagreed, say Security wanted one thing and Infrastructure another. How did you build consensus?"</p></div>
+      <div class="q-body"><div class="full"><h4 class="h-probe">Follow-ups</h4><ul><li>How did you map the org?</li><li>How many contacts were engaged at close?</li></ul></div></div></article>
+    <article class="q"><div class="q-head"><span class="q-id">B4</span><p class="q-text">"How do you run a proof-of-concept so it ends in a purchase instead of a science project?"</p></div>
+      <div class="q-body">
+        <div><h4 class="h-strong">Strong answer</h4>Success criteria agreed up front, a mutual action plan, exec sign-off before starting, time-boxed and tied to a decision date.</div>
+        <div><h4 class="h-red">Red flags</h4>Free, open-ended POCs driven by technical evaluators with no business sponsor.</div>
+      </div></article>
+    <article class="q"><div class="q-head"><span class="q-id">B5</span><p class="q-text">"Tell me about a time you sold a multi-year commitment or an enterprise license agreement."</p></div>
+      <div class="q-body"><div class="full"><h4 class="h-test">Testing</h4>Readiness for Cloudera's larger, multi-year subscription structures.</div></div></article>
+  </div>
+
+  <div class="qgroup" id="qc">
+    <div class="qgroup-h"><h3>C. Account expansion and renewals</h3><span class="chip c-info">R2, R5</span><span class="why">Much of a Cloudera enterprise number comes from the installed base: renewals, upgrades, migrations, new use cases, PS and training.</span></div>
+    <article class="q"><div class="q-head"><span class="q-id">C1</span><p class="q-text">"What share of your number comes from your existing base vs. net-new logos? How do you find expansion inside an account you already have?"</p></div>
+      <div class="q-body">
+        <div><h4 class="h-strong">Strong answer</h4>White-space mapping by business unit, use case and product. Exec business reviews. Tracks adoption and health. Has a renewal playbook.</div>
+        <div><h4 class="h-probe">Follow-ups</h4><ul><li>Give a specific expansion you drove. What triggered it?</li><li>Have you saved an at-risk renewal? How?</li></ul></div>
+      </div></article>
+    <article class="q"><div class="q-head"><span class="q-id">C2</span><p class="q-text">"You have 200+ accounts today. Our enterprise AEs have a much smaller set of very large accounts. How would your approach change?"</p></div>
+      <div class="q-body">
+        <div><h4 class="h-strong">Strong answer</h4>Sees the move from breadth to depth: detailed org charts across business units, multi-year account plans, exec alignment, more internal resources per account.</div>
+        <div><h4 class="h-red">Red flags</h4>"Same thing, just fewer accounts."</div>
+      </div></article>
+    <article class="q"><div class="q-head"><span class="q-id">C3</span><p class="q-text">"How do you sell professional services and training alongside the software?"</p></div>
+      <div class="q-body"><div class="full"><h4 class="h-test">Testing</h4>PS and training goals are explicitly in the job description.</div></div></article>
+    <article class="q"><div class="q-head"><span class="q-id">C4</span><p class="q-text">"Tell me about a customer who was unhappy. What did you do?"</p></div>
+      <div class="q-body"><div class="full"><h4 class="h-test">Testing</h4>Ownership of overall customer success.</div></div></article>
+  </div>
+
+  <div class="qgroup" id="qd">
+    <div class="qgroup-h"><h3>D. Data, analytics and AI domain</h3><span class="chip c-warn">Key gap</span><span class="chip c-info">R3</span><span class="why">Don't expect SE-level depth. Test baseline literacy, curiosity, preparation and learning speed.</span></div>
+    <article class="q"><div class="q-head"><span class="q-id">D1</span><p class="q-text">"What do you know about Cloudera, what we sell and who we compete with? What made you interested?"</p></div>
+      <div class="q-body">
+        <div><h4 class="h-strong">Strong answer</h4>Clear homework: a hybrid data platform across on-prem and cloud, an open lakehouse (Apache Iceberg), data engineering, warehousing, streaming, AI, shared security and governance. Names Databricks, Snowflake and the hyperscalers' native services.</div>
+        <div><h4 class="h-red">Red flags</h4>"A big data company," or "the Hadoop company" with no update. No preparation.</div>
+      </div></article>
+    <article class="q"><div class="q-head"><span class="q-id">D2</span><p class="q-text">"In plain business terms, explain the difference between a data warehouse, a data lake and a lakehouse, and why a customer would care."</p></div>
+      <div class="q-body">
+        <div><h4 class="h-strong">Strong answer</h4>Warehouse: curated, structured data for BI. Lake: cheap storage for raw data of any type, flexible but harder to govern. Lakehouse: lake scale with warehouse performance and governance on open formats. Value: one copy of data, lower cost, analytics and AI on everything.</div>
+        <div><h4 class="h-red">Red flags</h4>Bluffing with buzzwords. A partial answer plus an honest learning plan is acceptable.</div>
+      </div></article>
+    <article class="q"><div class="q-head"><span class="q-id">D3</span><p class="q-text">"How does your identity security background translate into selling a data platform?"</p></div>
+      <div class="q-body">
+        <div class="full"><h4 class="h-strong">Strong answer</h4>Draws real parallels. Identity governance ↔ data governance. Access control ↔ fine-grained data policies. Audit and compliance (SOX, HIPAA, state privacy) ↔ lineage and auditing. A CISO relationship helps clear security review in data deals.</div>
+        <div class="full callout">This is the candidate's best bridge. A thoughtful answer here is a strong positive.</div>
+      </div></article>
+    <article class="q"><div class="q-head"><span class="q-id">D4</span><p class="q-text">"Pick one of your energy customers. What data and analytics use cases do you think they have, and who in the organization owns them?"</p></div>
+      <div class="q-body">
+        <div><h4 class="h-strong">Strong answer</h4>Seismic and subsurface data, rig and pipeline sensor data, predictive maintenance, production optimization, emissions reporting, supply chain, AI for drilling. Owners: CDO, VP Digital, Head of Data Engineering, OT/IT leaders.</div>
+        <div><h4 class="h-probe">Follow-up</h4>"Do you know anyone in those organizations outside Security?" This tests whether the network transfers.</div>
+      </div></article>
+    <article class="q"><div class="q-head"><span class="q-id">D5</span><p class="q-text">"What's the hardest technical concept you've had to learn fast for a sale? How did you learn it?"</p></div>
+      <div class="q-body"><div class="full"><h4 class="h-test">Testing</h4>Learning agility, the main thing that offsets the domain gap.</div></div></article>
+    <article class="q"><div class="q-head"><span class="q-id">D6</span><p class="q-text">"How are enterprises thinking about AI and their data right now? What's driving the urgency?"</p></div>
+      <div class="q-body"><div class="full"><h4 class="h-strong">Strong answer</h4>Data readiness for AI, private AI on your own data, governance concerns, cost control, hybrid deployment for sensitive data.</div></div></article>
+  </div>
+
+  <div class="qgroup" id="qe">
+    <div class="qgroup-h"><h3>E. Cloud, containers and Kubernetes</h3><span class="chip c-warn">Gap</span><span class="chip c-info">R3</span><span class="why">Cloudera's data services run on Kubernetes across on-prem and cloud. The AE needs a working conversational grasp.</span></div>
+    <article class="q"><div class="q-head"><span class="q-id">E1</span><p class="q-text">"At a high level, what are containers and Kubernetes, and why would an enterprise data team care?"</p></div>
+      <div class="q-body">
+        <div><h4 class="h-strong">Strong answer</h4>Containers package an app with its dependencies so it runs the same anywhere. Kubernetes runs and scales them. For data: elastic, isolated workloads that move between on-prem and cloud and use hardware efficiently.</div>
+        <div><h4 class="h-red">Red flags</h4>No idea and no curiosity.</div>
+      </div></article>
+    <article class="q"><div class="q-head"><span class="q-id">E2</span><p class="q-text">"A CIO says, 'We're cloud-first, so why would we need a hybrid platform?' How do you respond?"</p></div>
+      <div class="q-body">
+        <div><h4 class="h-strong">Strong answer</h4>Asks first: what's driving it, cost, regulation, latency, data gravity, existing investments. Then positions hybrid: sovereignty, cloud cost control and repatriation, no lock-in, one governance layer, portable workloads.</div>
+        <div><h4 class="h-red">Red flags</h4>Argues with the customer. Leads with features.</div>
+      </div></article>
+    <article class="q"><div class="q-head"><span class="q-id">E3</span><p class="q-text">"How have you worked with AWS, Azure or GCP in a deal: marketplace, committed spend, co-selling?"</p></div>
+      <div class="q-body"><div class="full"><h4 class="h-test">Testing</h4>Awareness of cloud marketplace motions. Likely a gap, so look for awareness rather than experience.</div></div></article>
+    <article class="q"><div class="q-head"><span class="q-id">E4</span><p class="q-text">"How do you partner with a Solutions Engineer? Where's the line between your job and theirs?"</p></div>
+      <div class="q-body"><div class="full"><h4 class="h-strong">Strong answer</h4>The AE owns the business case, economic buyer, process and close. The SE owns technical validation. They plan and review calls together, and the AE can hold a first-level technical conversation.</div></div></article>
+  </div>
+
+  <div class="qgroup" id="qf">
+    <div class="qgroup-h"><h3>F. Pipeline and territory strategy</h3><span class="chip c-info">R2</span></div>
+    <article class="q"><div class="q-head"><span class="q-id">F1</span><p class="q-text">"If you started in this territory tomorrow, walk me through your first 90 days."</p></div>
+      <div class="q-body">
+        <div><h4 class="h-strong">Strong answer</h4>Learns the installed base (renewal dates, health, usage), meets SE, CS, partners and marketing, prioritizes accounts by potential and compelling events, sets a day-90 pipeline target, finds early wins in renewals.</div>
+        <div><h4 class="h-red">Red flags</h4>All cold calling. Ignores the existing base. No metrics.</div>
+      </div></article>
+    <article class="q"><div class="q-head"><span class="q-id">F2</span><p class="q-text">"What percentage of your pipeline is self-sourced vs. marketing, BDR or partner-sourced?"</p></div>
+      <div class="q-body"><div class="full"><h4 class="h-strong">Strong answer</h4>A meaningful self-sourced share (around 40% or more) and knows the figure.</div></div></article>
+    <article class="q"><div class="q-head"><span class="q-id">F3</span><p class="q-text">"How do you break into a Fortune 500 account where we have no relationship?"</p></div>
+      <div class="q-body"><div class="full"><h4 class="h-strong">Strong answer</h4>Researches 10-Ks, earnings calls and strategic initiatives. Uses multi-channel outreach, exec referrals, partners and events, with a value hypothesis tailored to each persona.</div></div></article>
+    <article class="q"><div class="q-head"><span class="q-id">F4</span><p class="q-text">"Tell me about a net-new logo you created from nothing."</p></div></article>
+  </div>
+
+  <div class="qgroup" id="qg">
+    <div class="qgroup-h"><h3>G. Executive presence</h3><span class="chip c-info">R2, R4</span></div>
+    <article class="q"><div class="q-head"><span class="q-id">G1</span><p class="q-text">"Who's the most senior executive you've sold to directly? What was the conversation about?"</p></div>
+      <div class="q-body"><div class="full"><h4 class="h-strong">Strong answer</h4>C-level or SVP. Talked about business outcomes, not features. Earned the seat.</div></div></article>
+    <article class="q"><div class="q-head"><span class="q-id">G2</span><p class="q-text">"Pitch me in 60 seconds why EOG's CIO should take a meeting with you about their data strategy."</p></div>
+      <div class="q-body"><div class="full"><h4 class="h-test">Testing</h4>Composure, business framing, brevity. Doesn't need deep Cloudera knowledge.</div></div></article>
+    <article class="q"><div class="q-head"><span class="q-id">G3</span><p class="q-text">"How do you handle an executive who wants to go straight to price?"</p></div></article>
+  </div>
+
+  <div class="qgroup" id="qh">
+    <div class="qgroup-h"><h3>H. Drive, coachability and culture</h3><span class="chip c-info">R1, R5</span></div>
+    <article class="q"><div class="q-head"><span class="q-id">H1</span><p class="q-text">"Your background is at larger, established companies. Tell me about a time you succeeded without a playbook or resources."</p></div>
+      <div class="q-body"><div class="full"><h4 class="h-strong">Strong answer</h4>A concrete example of scrappiness: built a process, created content, self-sourced pipeline.</div></div></article>
+    <article class="q"><div class="q-head"><span class="q-id">H2</span><p class="q-text">"Why are you looking to leave One Identity now?"</p></div>
+      <div class="q-body">
+        <div><h4 class="h-strong">Strong answer</h4>Pulled by growth: bigger deals, a new domain, a stronger platform.</div>
+        <div><h4 class="h-red">Red flags</h4>Negative about the employer, vague, or hints of performance trouble.</div>
+      </div></article>
+    <article class="q"><div class="q-head"><span class="q-id">H3</span><p class="q-text">"Why did you move from SailPoint Corporate AE to One Identity after about 7 months?"</p></div>
+      <div class="q-body"><div class="full"><h4 class="h-strong">Strong answer</h4>A logical step up: an enterprise territory, a senior AM level, bigger deals.</div></div></article>
+    <article class="q"><div class="q-head"><span class="q-id">H4</span><p class="q-text">"Tell me about the toughest professional setback you've had and how you handled it."</p></div>
+      <div class="q-body"><div class="full"><h4 class="h-test">Testing</h4>Resilience. The earlier years leading care staff may give strong examples.</div></div></article>
+    <article class="q"><div class="q-head"><span class="q-id">H5</span><p class="q-text">"What does your manager coach you on most? What feedback have you acted on?"</p></div>
+      <div class="q-body"><div class="full"><h4 class="h-test">Testing</h4>Coachability, which matters given the ramp this role needs.</div></div></article>
+    <article class="q"><div class="q-head"><span class="q-id">H6</span><p class="q-text">"Where do you want to be in 3–5 years?"</p></div></article>
+  </div>
+
+  <div class="qgroup" id="qi">
+    <div class="qgroup-h"><h3>I. Logistics</h3><span class="chip c-info">R1</span><span class="why">Ask every candidate these the same way.</span></div>
+    <div class="panel">
+      <ul>
+        <li>"This role requires up to 50% travel, about 2 weeks a month. Can you meet that requirement?"</li>
+        <li>"Are you legally authorized to work in the U.S.? Will you now or in the future require sponsorship for employment visa status?"</li>
+        <li>"What are your compensation expectations for base and OTE?" Follow local pay-transparency and salary-history laws.</li>
+        <li>"What territory or accounts would excite you most?"</li>
+        <li>"What's your notice period and earliest start date?"</li>
+        <li>"Do you have any non-compete or non-solicit obligations?"</li>
+      </ul>
+      <p class="callout"><b>Don't ask</b> about age (or graduation year as a stand-in for it), family, marital status, health, religion, national origin or any other protected characteristic.</p>
+    </div>
+  </div>
+</section>
+
+<!-- EXERCISE -->
+<section id="exercise">
+  <h2>Mock exercise (Round 4)</h2>
+  <p>Given the domain gap, a practical exercise is the best predictor. Send the scenario 48–72 hours ahead.</p>
+  <div class="scenario">
+    <span class="eyebrow">Scenario · fictional</span>
+    <h3>Gulf Coast Energy Co.</h3>
+    <p>A Houston-based Fortune 500 upstream and midstream energy company, and a long-time Cloudera customer running an older on-prem deployment for seismic, sensor and production analytics. <b>The renewal is in 7 months.</b> A new Chief Data Officer, hired from a cloud-native company, is pushing cloud-first, and one business unit is piloting a cloud-native competitor. The CISO is worried about moving sensitive operational and regulatory data to public cloud. Cloudera wants to renew, expand into hybrid and public cloud data services and AI use cases, and attach professional services.</p>
+  </div>
+  <div class="two">
+    <div class="panel"><span class="eyebrow">Part 1 · Account plan · 20 min + 10 Q&amp;A</span>
+      <ol class="plain">
+        <li>Situation assessment and key risks</li>
+        <li>Stakeholder map: CDO, CIO, CISO, BU leaders, procurement, possible champions</li>
+        <li>Value hypothesis and use cases</li>
+        <li>Competitive strategy</li>
+        <li>90-day plan, including use of SE, CS, partners and executives</li>
+        <li>Deal structure: renewal, expansion and PS</li>
+      </ol></div>
+    <div class="panel"><span class="eyebrow">Part 2 · Discovery role-play · 20 min</span>
+      <p>An SE or the hiring manager plays the new CDO: skeptical and leaning cloud-first.</p>
+      <p class="callout"><b>Mid-call challenge:</b> "Honestly, the competitor is 30% cheaper. Why shouldn't I just move?" Watch for composure and a value-based reframe rather than discounting.</p>
+    </div>
+  </div>
+  <div class="tbl"><table>
+    <thead><tr><th>Behavior</th><th>Strong</th><th>Weak</th></tr></thead>
+    <tbody>
+      <tr><td>Opening</td><td>Sets an agenda, earns time, gives a business reason for the call</td><td>Launches into a pitch</td></tr>
+      <tr><td>Discovery</td><td>Open, layered questions on priorities, metrics, timelines, cost of inaction</td><td>Leading questions, features</td></tr>
+      <tr><td>Listening</td><td>Summarizes accurately and adapts</td><td>Talks over the customer, sticks to a script</td></tr>
+      <tr><td>Cloud-first objection</td><td>Acknowledges, explores the reason, reframes to choice and hybrid</td><td>Argues or caves</td></tr>
+      <tr><td>Multi-threading</td><td>Asks to involve the CISO and BU leaders, uses Security as an ally</td><td>Stays single-threaded on the CDO</td></tr>
+      <tr><td>Next step</td><td>Clear, mutual and dated</td><td>"I'll follow up"</td></tr>
+      <tr><td>Domain humility</td><td>Honest about gaps, brings in the SE at the right moment</td><td>Bluffs</td></tr>
+    </tbody></table></div>
+</section>
+
+<!-- REFERENCES -->
+<section id="references">
+  <h2>Reference checks</h2>
+  <p>Ask for at least two former direct managers (One Identity and SailPoint) plus one SE or peer.</p>
+  <div class="panel"><ol class="plain">
+    <li>What was their quota and attainment each year you managed them? Where did they rank?</li>
+    <li>Describe the largest deal they closed. How much of it did they personally drive?</li>
+    <li>How accurate was their forecasting?</li>
+    <li>How did they work with Sales Engineers and partners?</li>
+    <li>How quickly do they learn new technical concepts?</li>
+    <li>What's one area they most need to develop?</li>
+    <li>Would you hire them again? For what level of role?</li>
+    <li>How did they handle a losing quarter?</li>
+    <li>For the SailPoint manager: why did they leave after 7 months as Corporate AE?</li>
+  </ol></div>
+</section>
+
+<!-- RUBRIC -->
+<section id="rubric">
+  <h2>Rubric and scorer</h2>
+  <p>Score each competency 1–5 after your round. <b>Hire bar for Enterprise AE:</b> weighted average of at least 3.5, with no score below 3 on A, B or D.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>Competency</th><th>1 · Poor</th><th>3 · Meets</th><th>5 · Exceptional</th><th class="num">Weight</th></tr></thead>
+    <tbody>
+      <tr><td><b>A.</b> Quota track record</td><td>Below quota or can't quantify</td><td>~100% most years</td><td>Consistently above 110%, top-quartile rank</td><td class="num">25%</td></tr>
+      <tr><td><b>B.</b> Enterprise deal execution</td><td>Transactional, single-threaded</td><td>Solid MEDDPICC, multi-threaded</td><td>Runs $1M+ deals, shapes the buying process</td><td class="num">20%</td></tr>
+      <tr><td><b>C.</b> Expansion and renewals</td><td>No expansion motion</td><td>Repeatable expansion playbook</td><td>Grew a large account significantly, strong renewals</td><td class="num">10%</td></tr>
+      <tr><td><b>D.</b> Data domain and learning agility</td><td>No knowledge or curiosity</td><td>Basic literacy, prepared</td><td>Credible business-level data conversation</td><td class="num">15%</td></tr>
+      <tr><td><b>E.</b> Cloud / Kubernetes</td><td>None</td><td>Conceptual understanding</td><td>Has sold infrastructure value before</td><td class="num">5%</td></tr>
+      <tr><td><b>F.</b> Pipeline and territory</td><td>Reactive</td><td>Structured 90-day plan, self-sources</td><td>Data-driven plan, strong self-sourcing</td><td class="num">10%</td></tr>
+      <tr><td><b>G.</b> Executive presence</td><td>Feature-focused, nervous</td><td>Credible with VPs</td><td>Commands the room with the C-suite</td><td class="num">10%</td></tr>
+      <tr><td><b>H.</b> Drive, coachability, culture</td><td>Concerning motivation</td><td>Positive, coachable</td><td>Exceptional ownership and grit</td><td class="num">5%</td></tr>
+    </tbody></table></div>
+
+  <div class="scorer" id="scorer">
+    <div class="stack"><span class="eyebrow">Your scores</span><p class="muted">Tap a score for each competency. The total updates as you go. Scores stay in your own browser only and aren't shared with the panel, so enter your final scores in the hiring system.</p></div>
+    <div id="srows"></div>
+    <div class="result">
+      <div><span class="eyebrow">Weighted score</span><div class="big" id="total">—</div></div>
+      <span class="chip c-info" id="barchip">Score all eight to see the result</span>
+      <button class="reset" id="reset" type="button">Clear scores</button>
+    </div>
+  </div>
+</section>
+
+<!-- DECISION -->
+<section id="decision">
+  <h2>Decision guide</h2>
+  <div class="tbl"><table>
+    <thead><tr><th>If interviews show…</th><th>Recommendation</th></tr></thead>
+    <tbody>
+      <tr><td>Attainment consistently above 110%, a strong deal deep-dive, real preparation on Cloudera and data, an impressive mock exercise</td><td><span class="chip c-good">Hire · stretch Enterprise AE</span><br>Pair with a strong SE, set a defined technical ramp, and favor an Energy / Public Sector Texas territory.</td></tr>
+      <tr><td>Solid ~100% attainment and good mechanics, but limited domain preparation and scale</td><td><span class="chip c-warn">Consider Commercial / Mid-Enterprise</span><br>Path to Enterprise in 12–18 months.</td></tr>
+      <tr><td>Can't quantify attainment, weak deal depth, or no preparation on Cloudera and data</td><td><span class="chip c-bad">Do not advance</span><br>The 8+ year and domain requirements aren't offset.</td></tr>
+    </tbody></table></div>
+  <div class="panel"><span class="eyebrow">If hired: ramp risks to manage</span>
+    <ul>
+      <li><b>Persona shift</b> from CISO and IAM buyers to data leaders. Pair with a senior data platform AE as a mentor.</li>
+      <li><b>Technical ramp:</b> lakehouse and Iceberg, data engineering, streaming, AI/ML workflows, Kubernetes basics, hybrid architecture, competitive landscape.</li>
+      <li><b>Deal scale:</b> coaching on multi-year, multi-million structures and complex negotiation.</li>
+      <li><b>Installed-base motion:</b> renewal, migration and expansion playbooks for long-standing customers.</li>
+    </ul></div>
+</section>
+
+<footer>Assessment based on the candidate's 2026 resume and the job description for Req 261294. Product and competitor details come from general market knowledge. Check them against current internal sales training before using them as an answer key.</footer>
+</main>
+</div>
+
+<script>
+(function(){
+  var comps=[["A","Quota track record",25],["B","Enterprise deal execution",20],["C","Expansion and renewals",10],["D","Data domain and learning agility",15],["E","Cloud / Kubernetes",5],["F","Pipeline and territory",10],["G","Executive presence",10],["H","Drive, coachability, culture",5]];
+  var KEY="panel-scores-v1", scores={};
+  try{scores=JSON.parse(localStorage.getItem(KEY))||{}}catch(e){scores={}}
+  var host=document.getElementById("srows");
+  comps.forEach(function(c){
+    var row=document.createElement("div");row.className="srow";
+    row.innerHTML='<span><b>'+c[0]+'.</b> '+c[1]+'</span><span class="wt">'+c[2]+'%</span><div class="seg" role="group" aria-label="Score for '+c[1]+'"></div>';
+    var seg=row.querySelector(".seg");
+    for(var i=1;i<=5;i++){
+      var b=document.createElement("button");b.type="button";b.textContent=i;b.id="s-"+c[0]+"-"+i;
+      b.setAttribute("aria-pressed",String(scores[c[0]]===i));
+      (function(k,v){b.addEventListener("click",function(){scores[k]=v;save();render()})})(c[0],i);
+      seg.appendChild(b);
+    }
+    host.appendChild(row);
+  });
+  function save(){try{localStorage.setItem(KEY,JSON.stringify(scores))}catch(e){}}
+  function render(){
+    comps.forEach(function(c){for(var i=1;i<=5;i++){document.getElementById("s-"+c[0]+"-"+i).setAttribute("aria-pressed",String(scores[c[0]]===i))}});
+    var done=comps.filter(function(c){return scores[c[0]]}).length;
+    var total=comps.reduce(function(s,c){return s+(scores[c[0]]||0)*c[2]/100},0);
+    var t=document.getElementById("total"),chip=document.getElementById("barchip");
+    if(!done){t.textContent="—";chip.className="chip c-info";chip.textContent="Score all eight to see the result";return}
+    t.textContent=total.toFixed(2)+" / 5";
+    if(done<comps.length){chip.className="chip c-info";chip.textContent=done+" of 8 scored";return}
+    var floor=["A","B","D"].filter(function(k){return scores[k]<3});
+    if(total>=3.5&&!floor.length){chip.className="chip c-good";chip.textContent="Meets the Enterprise hire bar"}
+    else if(floor.length){chip.className="chip c-bad";chip.textContent="Below 3 on "+floor.join(", ")+": below the bar"}
+    else{chip.className="chip c-warn";chip.textContent="Below 3.5: consider Commercial / Mid-Enterprise"}
+  }
+  document.getElementById("reset").addEventListener("click",function(){scores={};save();render()});
+  render();
+})();
+</script>
